@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Contoso.Mobile.UI.Views
 {
-    public partial class MainView : ContentPage
+    public partial class MainView : BaseView
     {
         public MainView()
         {
