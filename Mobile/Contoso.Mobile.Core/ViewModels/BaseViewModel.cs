@@ -12,6 +12,13 @@ namespace Contoso.Mobile.Core.ViewModels
     {
         #region Properties
 
+        private bool _IsInitialized;
+        public bool IsInitialized
+        {
+            get { return _IsInitialized; }
+            private set { this.SetProperty(ref _IsInitialized, value); }
+        }
+
         private bool _StatusIsBusy;
         public bool StatusIsBusy
         {
@@ -39,7 +46,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         public BaseViewModel()
         {
-            this.RefreshCommand = new Command(async () => await RefreshAsync(true, this.StatusText));
+            this.RefreshCommand = new Command(async () => await RefreshAsync());
         }
 
         #endregion
@@ -65,10 +72,11 @@ namespace Contoso.Mobile.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(statusText);
-                await this.OnRefreshAsync(forceRefresh);
+                await this.OnRefreshAsync(forceRefresh || !this.IsInitialized);
             }
             finally
             {
+                this.IsInitialized = true;
                 this.ClearStatus();
             }
         }

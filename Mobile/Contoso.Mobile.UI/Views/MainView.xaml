@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:BaseView xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contoso.Mobile.UI.Views.MainView"
-             xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
-             >
+<views:BaseView 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Contoso.Mobile.UI.Views.MainView"
+    xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
+    xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
+    xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
+    >
 
     <StackLayout>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
@@ -21,6 +24,50 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Label Text="{Binding Items, StringFormat='Count: {0}'}" />
+
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding Items}" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Text}" />
+                            <Label Text="{Binding Description}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!--<RefreshView x:DataType="viewmodels:MainViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" x:DataType="models:ItemModel">
+                            <Label Text="{Binding Text}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                            <Label Text="{Binding Description}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            --><!--<StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>--><!--
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>-->
+        
+        
     </StackLayout>
 
 </views:BaseView>

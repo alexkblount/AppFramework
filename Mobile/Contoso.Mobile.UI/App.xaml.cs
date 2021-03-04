@@ -1,4 +1,5 @@
-﻿using Contoso.Mobile.UI.Views;
+﻿using Contoso.Mobile.Core.Services;
+using Contoso.Mobile.UI.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,7 @@ namespace Contoso.Mobile.UI
         {
             InitializeComponent();
 
+            DependencyService.Register<MockItemsDataStore>();
             MainPage = new MainView();
         }
 

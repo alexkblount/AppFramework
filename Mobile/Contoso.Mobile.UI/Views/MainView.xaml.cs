@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contoso.Mobile.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Contoso.Mobile.UI.Views
         public MainView()
         {
             InitializeComponent();
+            this.ViewModel = new MainViewModel();
         }
     }
 }

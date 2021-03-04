@@ -17,7 +17,13 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Behaviors\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contoso.Mobile.Core\Contoso.Mobile.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
