@@ -27,6 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\AccountCreateView.xaml.cs">
+      <DependentUpon>AccountCreateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AccountLoginView.xaml.cs">
+      <DependentUpon>AccountLoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>

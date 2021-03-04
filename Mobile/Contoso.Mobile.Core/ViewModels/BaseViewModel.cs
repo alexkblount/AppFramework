@@ -30,7 +30,7 @@ namespace Contoso.Mobile.Core.ViewModels
         public bool StatusIsBusy
         {
             get { return _StatusIsBusy; }
-            private set { this.SetProperty(ref _StatusIsBusy, value); }
+            set { this.SetProperty(ref _StatusIsBusy, value); }
         }
 
         private string _StatusText;
@@ -53,7 +53,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         public BaseViewModel()
         {
-            this.RefreshCommand = new Command(async () => await RefreshAsync());
+            this.RefreshCommand = new Command(async () => await RefreshAsync(true));
         }
 
         #endregion

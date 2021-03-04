@@ -9,12 +9,12 @@ using Xamarin.Forms;
 
 namespace Contoso.Mobile.UI.Views
 {
-    public partial class MainView : BaseView
+    public partial class AccountCreateView : BaseView
     {
-        public MainView()
+        public AccountCreateView()
         {
             InitializeComponent();
-            this.ViewModel = vm;// new MainViewModel();
+            this.ViewModel = new AccountCreateViewModel();
         }
     }
 }

@@ -1,35 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Contoso.Mobile.Core.Models
 {
-    public abstract class BaseModel
+    public abstract class BaseModel : INotifyPropertyChanged
     {
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, value))
-                return false;
-
-            backingStore = value;
-            onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null, Action onChanged = null)
         {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
+            if (System.Collections.Generic.EqualityComparer<T>.Default.Equals(storage, value))
+            {
+                return false;
+            }
+            else
+            {
+                storage = value;
+                onChanged?.Invoke();
+                this.NotifyPropertyChanged(propertyName);
+                return true;
+            }
+        }
 
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

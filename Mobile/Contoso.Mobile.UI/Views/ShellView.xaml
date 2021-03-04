@@ -9,5 +9,10 @@
         <ShellContent Title="Settings" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:SettingsView}" />
         <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate views:AboutView}" />
     </TabBar>
+
+    <TabBar>
+        <ShellContent Title="Login" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:AccountLoginView}" />
+        <ShellContent Title="Create" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:AccountCreateView}" />
+    </TabBar>
     
 </Shell>
