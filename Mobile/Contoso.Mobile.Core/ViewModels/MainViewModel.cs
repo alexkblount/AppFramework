@@ -19,6 +19,11 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _Items, value); }
         }
 
+        public MainViewModel()
+        {
+            this.Title = "Welcome!";
+        }
+
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
             if(this.Items == null || forceRefresh)

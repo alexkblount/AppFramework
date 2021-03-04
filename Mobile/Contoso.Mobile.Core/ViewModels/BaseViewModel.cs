@@ -19,6 +19,13 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _IsInitialized, value); }
         }
 
+        private string _Title;
+        public string Title
+        {
+            get { return _Title; }
+            protected set { this.SetProperty(ref _Title, value); }
+        }
+
         private bool _StatusIsBusy;
         public bool StatusIsBusy
         {

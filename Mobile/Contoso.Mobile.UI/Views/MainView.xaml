@@ -6,7 +6,7 @@
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
-    >
+    Title="{Binding Title, Mode=OneWay}">
 
     <StackLayout>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">

@@ -13,7 +13,7 @@ namespace Contoso.Mobile.UI
             InitializeComponent();
 
             DependencyService.Register<MockItemsDataStore>();
-            MainPage = new MainView();
+            MainPage = new ShellView();
         }
 
         protected override void OnStart()
