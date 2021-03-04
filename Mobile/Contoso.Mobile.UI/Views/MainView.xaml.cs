@@ -16,5 +16,13 @@ namespace Contoso.Mobile.UI.Views
             InitializeComponent();
             this.ViewModel = vm;// new MainViewModel();
         }
+
+        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(sender is CollectionView control)
+            {
+
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Contoso.Mobile.UI
         {
             InitializeComponent();
 
-            DependencyService.Register<MockItemsDataStore>();
+            DependencyService.Register<MockNotesDataStore>();
             MainPage = new ShellView();
         }
 

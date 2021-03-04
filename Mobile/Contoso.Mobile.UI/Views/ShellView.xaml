@@ -5,7 +5,7 @@
        x:Class="Contoso.Mobile.UI.Views.ShellView">
 
     <TabBar>
-        <ShellContent Title="Main" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:MainView}" />
+        <ShellContent Title="Home" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:MainView}" />
         <ShellContent Title="Settings" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:SettingsView}" />
         <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate views:AboutView}" />
     </TabBar>
