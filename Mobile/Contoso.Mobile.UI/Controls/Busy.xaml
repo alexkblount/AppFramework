@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contoso.Mobile.UI.Controls.Busy"
+             xmlns:converters="clr-namespace:Contoso.Mobile.UI.Converters"
+             IsVisible="{Binding IsBusy}"
+             >
+    <ContentView.Content>
+        <Grid>
+            <BoxView BackgroundColor="Black" Opacity=".7" />
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" />
+                <Label 
+                    Text="{Binding Message, TargetNullValue='Just a couple seconds...'}" 
+                    IsVisible="{Binding Message, Converter={StaticResource boolConverter}}"
+                    TextColor="White"
+                    HorizontalTextAlignment="Center" />
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

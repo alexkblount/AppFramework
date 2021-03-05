@@ -50,6 +50,13 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _RefreshCommand, value); }
         }
 
+        private NotifyTaskCompletionList _RefreshTasks = new NotifyTaskCompletionList();
+        public NotifyTaskCompletionList RefreshTasks
+        {
+            get { return _RefreshTasks; }
+            private set { this.SetProperty(ref _RefreshTasks, value); }
+        }
+
         #endregion
 
         #region Constructors
@@ -82,6 +89,7 @@ namespace Contoso.Mobile.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(statusText);
+                this.RefreshTasks?.Refresh(forceRefresh);
                 await this.OnRefreshAsync(forceRefresh || !this.IsInitialized);
             }
             finally
