@@ -1,4 +1,5 @@
 ﻿using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,8 @@ namespace Contoso.Mobile.Core.ViewModels
     public abstract class BaseViewModel : BaseModel
     {
         #region Properties
+
+        public NavigationService NavigationService => DependencyService.Get<NavigationService>();
 
         private bool _IsInitialized;
         public bool IsInitialized

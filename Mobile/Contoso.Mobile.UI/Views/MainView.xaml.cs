@@ -1,4 +1,5 @@
 ﻿using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using Contoso.Mobile.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ namespace Contoso.Mobile.UI.Views
             {
                 if (control.SelectedItem is FolderModel folder)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(FolderViewModel)}?{nameof(BaseItemModel.Id)}={folder.Id}");
+                    await this.ViewModel?.NavigationService.NavigateToAsync<FolderViewModel>($"{nameof(BaseItemModel.Id)}={folder.Id}");
                 }
                 else if(control.SelectedItem is NoteModel note)
                 {
-                    await Shell.Current.GoToAsync($"{nameof(NoteViewModel)}?{nameof(BaseItemModel.Id)}={note.Id}");
+                    await this.ViewModel?.NavigationService.NavigateToAsync<NoteViewModel>($"{nameof(BaseItemModel.Id)}={note.Id}");
                 }
             }
         }
