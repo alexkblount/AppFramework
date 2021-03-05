@@ -28,7 +28,26 @@ namespace Contoso.Mobile.Core.Models
         public ObservableCollection<BaseItemModel> Notes
         {
             get { return _Notes; }
-            set { this.SetProperty(ref _Notes, value); }
+            set 
+            { 
+                this.SetProperty(ref _Notes, value);
+                this.NotifyPropertyChanged(() => this.Count);
+            }
+        }
+
+        public long Count
+        {
+            get
+            {
+                long total = 0;
+                if (this.Notes != null)
+                    foreach (var item in this.Notes)
+                        if (item is NoteModel)
+                            total += 1;
+                        else if (item is FolderModel folder)
+                            total += folder.Count;
+                return total;
+            }
         }
     }
 
