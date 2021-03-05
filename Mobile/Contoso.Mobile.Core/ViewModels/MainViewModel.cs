@@ -12,11 +12,11 @@ namespace Contoso.Mobile.Core.ViewModels
     {
         private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
 
-        private IList<BaseItemModel> _Items;
-        public IList<BaseItemModel> Items
+        private IList<BaseItemModel> _Notes;
+        public IList<BaseItemModel> Notes
         {
-            get { return _Items; }
-            private set { this.SetProperty(ref _Items, value); }
+            get { return _Notes; }
+            private set { this.SetProperty(ref _Notes, value); }
         }
 
         public MainViewModel()
@@ -26,8 +26,8 @@ namespace Contoso.Mobile.Core.ViewModels
 
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
-            if(this.Items == null || forceRefresh)
-                this.Items = await this.DataStore.GetAsync();
+            if(this.Notes == null || forceRefresh)
+                this.Notes = await this.DataStore.GetAsync();
         }
     }
 }

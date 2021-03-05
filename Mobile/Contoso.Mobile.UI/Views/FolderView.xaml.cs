@@ -10,9 +10,9 @@ using Xamarin.Forms;
 
 namespace Contoso.Mobile.UI.Views
 {
-    public partial class MainView : BaseView
+    public partial class FolderView : BaseView
     {
-        public MainView()
+        public FolderView()
         {
             InitializeComponent();
             this.ViewModel = vm;
@@ -26,7 +26,7 @@ namespace Contoso.Mobile.UI.Views
                 {
                     await Shell.Current.GoToAsync($"{nameof(FolderViewModel)}?{nameof(BaseItemModel.Id)}={folder.Id}");
                 }
-                else if(control.SelectedItem is NoteModel note)
+                else if (control.SelectedItem is NoteModel note)
                 {
                     await Shell.Current.GoToAsync($"{nameof(NoteViewModel)}?{nameof(BaseItemModel.Id)}={note.Id}");
                 }
