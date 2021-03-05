@@ -15,17 +15,13 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" />
     </ContentPage.ToolbarItems>
-
+    
     <RefreshView x:DataType="viewmodels:FolderViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Model.Notes}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="models:BaseItemModel">
-                        <Label Text="{Binding Name}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <CollectionView 
+            ItemsSource="{Binding Model.Notes}" 
+            ItemTemplate="{StaticResource NotesItemTemplate}"
+            SelectionMode="Single" 
+            SelectionChanged="CollectionView_SelectionChanged" />
     </RefreshView>
 
 </views:BaseView>

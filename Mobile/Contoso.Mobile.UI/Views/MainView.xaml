@@ -12,20 +12,16 @@
         <viewmodels:MainViewModel x:Name="vm" />
     </views:BaseView.BindingContext>
 
-    <RefreshView x:DataType="viewmodels:MainViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
-        <CollectionView ItemsSource="{Binding Notes}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged" >
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="models:BaseItemModel">
-                        <Label Text="{Binding Name}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" />
     </ContentPage.ToolbarItems>
+    
+    <RefreshView x:DataType="viewmodels:MainViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+        <CollectionView 
+            ItemsSource="{Binding Notes}" 
+            ItemTemplate="{StaticResource NotesItemTemplate}"
+            SelectionMode="Single" 
+            SelectionChanged="CollectionView_SelectionChanged" />
+    </RefreshView>
 
 </views:BaseView>
