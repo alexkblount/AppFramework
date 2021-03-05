@@ -10,9 +10,9 @@ namespace Contoso.Mobile.Core.Services
 {
     public sealed class MockNotesDataStore : IDataStore<BaseItemModel>
     {
-        readonly List<BaseItemModel> items;
+        readonly static List<BaseItemModel> items;
 
-        public MockNotesDataStore()
+        static MockNotesDataStore()
         {
             var work = new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Work" };
             work.Notes = new System.Collections.ObjectModel.ObservableCollection<BaseItemModel>()
@@ -31,6 +31,10 @@ namespace Contoso.Mobile.Core.Services
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Take the kids out", Body="This is an item description." },
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Body="This is an item description." }
             };
+        }
+
+        public MockNotesDataStore()
+        {
         }
 
         public async Task<bool> AddAsync(BaseItemModel model)

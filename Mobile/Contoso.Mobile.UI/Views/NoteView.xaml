@@ -6,6 +6,19 @@
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
+    xmlns:controls="clr-namespace:Contoso.Mobile.UI.Controls"
     Title="{Binding Title, Mode=OneWay}">
+
+    <Grid>
+        <RefreshView x:DataType="viewmodels:NoteViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Name:" FontSize="Micro" />
+                <Label Text="{Binding Model.Name}" FontSize="Medium" FontAttributes="Bold" />
+                <Label Text="Body:" FontSize="Micro" />
+                <Label Text="{Binding Model.Body}" FontSize="Medium"/>
+            </StackLayout>
+        </RefreshView>
+        <controls:Busy IsBusy="{Binding StatusIsBusy}" Message="{Binding StatusText}" />
+    </Grid>
 
 </views:BaseView>
