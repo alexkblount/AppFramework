@@ -1,8 +1,5 @@
 ﻿using Contoso.Core;
 using Contoso.Mobile.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,6 +8,8 @@ namespace Contoso.Mobile.Core.ViewModels
     [QueryProperty(nameof(FolderModel.Id), nameof(FolderModel.Id))]
     public sealed class FolderViewModel : BaseViewModel
     {
+        #region Properties
+
         private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
 
         private string _Id;
@@ -27,15 +26,47 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _Model, value); }
         }
 
+        public Command NavigationCommand => new Command(async () => await this.NavigationAsync());
+
+        private BaseItemModel _SelectedItem;
+        public BaseItemModel SelectedItem
+        {
+            get { return _SelectedItem; }
+            set { this.SetProperty(ref _SelectedItem, value); }
+        }
+
+        #endregion
+
+        #region Constructors
+
         public FolderViewModel()
         {
             this.Title = "Folder";
         }
 
+        #endregion
+
+        #region Methods
+
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
             if (this.Model == null || forceRefresh)
-                this.Model = (FolderModel)await this.DataStore.GetAsync(this.Id);
+                if (this.Id == null)
+                    this.Model = (FolderModel)await this.DataStore.GetAsync(this.Id);
+                else
+                    this.Model = (FolderModel)await this.DataStore.GetAsync(this.Id);
         }
+
+        private async Task NavigationAsync()
+        {
+            if (this.SelectedItem is FolderModel folder)
+                await this.NavigationService.NavigateToAsync<FolderViewModel>(folder);
+            else if (this.SelectedItem is NoteModel note)
+                await this.NavigationService.NavigateToAsync<NoteViewModel>(note);
+
+            this.SelectedItem = null;
+        }
+
+        #endregion
     }
 }

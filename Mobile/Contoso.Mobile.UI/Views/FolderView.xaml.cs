@@ -17,16 +17,5 @@ namespace Contoso.Mobile.UI.Views
             InitializeComponent();
             this.ViewModel = vm;
         }
-
-        private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is CollectionView control)
-            {
-                if (control.SelectedItem is FolderModel folder)
-                    await this.ViewModel?.NavigationService.NavigateToAsync<FolderViewModel>(folder);
-                else if (control.SelectedItem is NoteModel note)
-                    await this.ViewModel?.NavigationService.NavigateToAsync<NoteViewModel>(note);
-            }
-        }
     }
 }

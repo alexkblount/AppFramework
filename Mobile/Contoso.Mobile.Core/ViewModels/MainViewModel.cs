@@ -1,8 +1,6 @@
 ﻿using Contoso.Core;
 using Contoso.Mobile.Core.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -10,6 +8,8 @@ namespace Contoso.Mobile.Core.ViewModels
 {
     public sealed class MainViewModel : BaseViewModel
     {
+        #region Properties
+
         private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
 
         private IList<BaseItemModel> _Notes;
@@ -19,10 +19,27 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _Notes, value); }
         }
 
+        public Command NavigationCommand => new Command(async () => await this.NavigationAsync());
+
+        private BaseItemModel _SelectedItem;
+        public BaseItemModel SelectedItem
+        {
+            get { return _SelectedItem; }
+            set { this.SetProperty(ref _SelectedItem, value); }
+        }
+
+        #endregion
+
+        #region Constructors
+
         public MainViewModel()
         {
             this.Title = "My Notes";
         }
+
+        #endregion
+
+        #region Methods
 
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
@@ -30,6 +47,16 @@ namespace Contoso.Mobile.Core.ViewModels
                 this.Notes = await this.DataStore.GetAsync();
         }
 
+        private async Task NavigationAsync()
+        {
+            if (this.SelectedItem is FolderModel folder)
+                await this.NavigationService.NavigateToAsync<FolderViewModel>(folder);
+            else if (this.SelectedItem is NoteModel note)
+                await this.NavigationService.NavigateToAsync<NoteViewModel>(note);
 
+            this.SelectedItem = null;
+        }
+
+        #endregion
     }
 }

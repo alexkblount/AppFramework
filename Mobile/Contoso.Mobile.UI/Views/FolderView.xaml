@@ -6,6 +6,7 @@
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
+    xmlns:controls="clr-namespace:Contoso.Mobile.UI.Controls"
     Title="{Binding Title, Mode=OneWay}">
 
     <views:BaseView.BindingContext>
@@ -15,13 +16,17 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" />
     </ContentPage.ToolbarItems>
-    
-    <RefreshView x:DataType="viewmodels:FolderViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
-        <CollectionView 
-            ItemsSource="{Binding Model.Notes}" 
-            ItemTemplate="{StaticResource NoteFolderDataSelector}"
-            SelectionMode="Single" 
-            SelectionChanged="CollectionView_SelectionChanged" />
-    </RefreshView>
+
+    <Grid>
+        <RefreshView x:DataType="viewmodels:FolderViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+            <CollectionView
+                ItemsSource="{Binding Model.Notes}" 
+                ItemTemplate="{StaticResource NoteFolderDataSelector}"
+                SelectionMode="Single" 
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding NavigationCommand}" />
+        </RefreshView>
+        <controls:Busy IsBusy="{Binding StatusIsBusy}" Message="{Binding StatusText}" />
+    </Grid>
 
 </views:BaseView>
