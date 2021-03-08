@@ -1,17 +1,15 @@
 ﻿using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using Contoso.Mobile.Core.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Contoso.Mobile.Core.Services
+namespace Contoso.Mobile.UI.Services
 {
-    public sealed class NavigationService
+    public sealed class NavigationService : INavigationService
     {
-        public INavigation Navigation 
-        { 
+        public INavigation Navigation
+        {
             get
             {
                 if (Application.Current.MainPage is TabbedPage tabPage)
@@ -32,13 +30,16 @@ namespace Contoso.Mobile.Core.Services
             }
         }
 
-        public async Task NavigateToAsync<T>(object parameter = null) where T : BaseViewModel
+        public async Task NavigateToAsync<T>(BaseModel model = null) where T : BaseViewModel
         {
             var url = $"{typeof(T).Name}";
-            if (parameter != null)
-                url = url + "?" + parameter.ToString();
 
-            await Shell.Current.GoToAsync(url); ;
+            if (model is FolderModel folder)
+                url = url + $"?{nameof(BaseItemModel.Id)}={folder.Id}";
+            else if (model is NoteModel note)
+                url = url + $"?{nameof(BaseItemModel.Id)}={note.Id}";
+
+            await Shell.Current.GoToAsync(url);
         }
     }
 }

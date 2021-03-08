@@ -13,7 +13,7 @@ namespace Contoso.Mobile.Core.ViewModels
     {
         #region Properties
 
-        public NavigationService NavigationService => DependencyService.Get<NavigationService>();
+        public INavigationService NavigationService => DependencyService.Get<INavigationService>();
 
         private bool _IsInitialized;
         public bool IsInitialized

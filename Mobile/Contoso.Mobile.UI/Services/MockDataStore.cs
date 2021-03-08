@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contoso.Mobile.Core.Services
+namespace Contoso.Mobile.UI.Services
 {
-    public sealed class MockNotesDataStore : IDataStore<BaseItemModel>
+    public sealed class MockDataStore : IDataStore<BaseItemModel>
     {
         readonly static List<BaseItemModel> items;
 
-        static MockNotesDataStore()
+        static MockDataStore()
         {
             var work = new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Work" };
             work.Notes = new System.Collections.ObjectModel.ObservableCollection<BaseItemModel>()
@@ -31,10 +31,6 @@ namespace Contoso.Mobile.Core.Services
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Take the kids out", Body="This is an item description." },
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Body="This is an item description." }
             };
-        }
-
-        public MockNotesDataStore()
-        {
         }
 
         public async Task<bool> AddAsync(BaseItemModel model)

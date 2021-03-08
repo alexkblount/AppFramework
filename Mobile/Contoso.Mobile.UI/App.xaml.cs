@@ -1,4 +1,4 @@
-﻿using Contoso.Mobile.Core.Services;
+﻿using Contoso.Mobile.UI.Services;
 using Contoso.Mobile.UI.Views;
 using System;
 using Xamarin.Forms;
@@ -12,8 +12,9 @@ namespace Contoso.Mobile.UI
         {
             InitializeComponent();
 
+            DependencyService.Register<MockDataStore>();
             DependencyService.Register<NavigationService>();
-            DependencyService.Register<MockNotesDataStore>();
+
             MainPage = new ShellView();
         }
 

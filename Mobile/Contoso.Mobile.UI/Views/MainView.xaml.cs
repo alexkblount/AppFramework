@@ -24,13 +24,9 @@ namespace Contoso.Mobile.UI.Views
             if (sender is CollectionView control)
             {
                 if (control.SelectedItem is FolderModel folder)
-                {
-                    await this.ViewModel?.NavigationService.NavigateToAsync<FolderViewModel>($"{nameof(BaseItemModel.Id)}={folder.Id}");
-                }
+                    await this.ViewModel?.NavigationService.NavigateToAsync<FolderViewModel>(folder);
                 else if(control.SelectedItem is NoteModel note)
-                {
-                    await this.ViewModel?.NavigationService.NavigateToAsync<NoteViewModel>($"{nameof(BaseItemModel.Id)}={note.Id}");
-                }
+                    await this.ViewModel?.NavigationService.NavigateToAsync<NoteViewModel>(note);
             }
         }
     }

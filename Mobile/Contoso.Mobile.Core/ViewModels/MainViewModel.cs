@@ -29,5 +29,7 @@ namespace Contoso.Mobile.Core.ViewModels
             if(this.Notes == null || forceRefresh)
                 this.Notes = await this.DataStore.GetAsync();
         }
+
+
     }
 }
