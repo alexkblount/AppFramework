@@ -19,7 +19,7 @@
     <RefreshView x:DataType="viewmodels:FolderViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
         <CollectionView 
             ItemsSource="{Binding Model.Notes}" 
-            ItemTemplate="{StaticResource NotesItemTemplate}"
+            ItemTemplate="{StaticResource NoteFolderDataSelector}"
             SelectionMode="Single" 
             SelectionChanged="CollectionView_SelectionChanged" />
     </RefreshView>

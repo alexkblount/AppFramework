@@ -2,20 +2,12 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contoso.Mobile.UI.App"
-             xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
-             xmlns:converters="clr-namespace:Contoso.Mobile.UI.Converters">
+             xmlns:resources="clr-namespace:Contoso.Mobile.UI.Resources">
     <Application.Resources>
         <ResourceDictionary>
-            <converters:ValueToBooleanConverter x:Key="boolConverter" />
-            <converters:ValueToBooleanConverter x:Key="boolInverseConverter" InvertValue="True" />
-
-            <DataTemplate x:Key="NotesItemTemplate">
-                <StackLayout Padding="10" x:DataType="models:BaseItemModel">
-                    <Label Text="{Binding Name}" />
-                    <Label Text="{Binding Count}" IsVisible="{Binding Count, Converter={StaticResource boolConverter}}" />
-                </StackLayout>
-            </DataTemplate>
-            
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Common />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -20,8 +20,6 @@ namespace Contoso.Mobile.Core.Models
             get { return _Name; }
             set { this.SetProperty(ref _Name, value); }
         }
-
-        public virtual long Count => long.MinValue;
     }
 
     public sealed class FolderModel : BaseItemModel
@@ -37,7 +35,7 @@ namespace Contoso.Mobile.Core.Models
             }
         }
 
-        public override long Count
+        public long Count
         {
             get
             {

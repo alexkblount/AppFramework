@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Contoso.Mobile.UI.Converters"
+    xmlns:controls="clr-namespace:Contoso.Mobile.UI.Controls"
+    xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
+    x:Class="Contoso.Mobile.UI.Resources.Common">
+
+    <!--Converters-->
+    <converters:ValueToBooleanConverter x:Key="boolConverter" />
+    <converters:ValueToBooleanConverter x:Key="boolInverseConverter" InvertValue="True" />
+
+    <!--DataTemplates-->
+    <DataTemplate x:Key="FolderDataTemplate">
+        <StackLayout Padding="10" x:DataType="models:FolderModel">
+            <Label Text="{Binding Name}" />
+            <Label Text="{Binding Count}" IsVisible="{Binding Count, Converter={StaticResource boolConverter}}" />
+        </StackLayout>
+    </DataTemplate>
+    <DataTemplate x:Key="NoteDataTemplate">
+        <StackLayout Padding="10" x:DataType="models:NoteModel">
+            <Label Text="{Binding Name}" />
+        </StackLayout>
+    </DataTemplate>
+    
+    <!--Controls-->
+    <controls:NoteFolderDataTemplateSelector 
+        x:Key="NoteFolderDataSelector" 
+        FolderDataTemplate="{StaticResource FolderDataTemplate}"
+        NoteDataTemplate="{StaticResource NoteDataTemplate}" />    
+    
+</ResourceDictionary>
