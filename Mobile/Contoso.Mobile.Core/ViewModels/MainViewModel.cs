@@ -10,8 +10,6 @@ namespace Contoso.Mobile.Core.ViewModels
     {
         #region Properties
 
-        private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
-
         private IList<BaseItemModel> _Notes;
         public IList<BaseItemModel> Notes
         {
@@ -44,7 +42,7 @@ namespace Contoso.Mobile.Core.ViewModels
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
             if(this.Notes == null || forceRefresh)
-                this.Notes = await this.DataStore.GetAsync();
+                this.Notes = await this.DataStore.Notes.GetAsync();
         }
 
         private async Task NavigationAsync()

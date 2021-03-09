@@ -10,7 +10,7 @@
     Title="{Binding Title, Mode=OneWay}">
 
     <views:BaseView.BindingContext>
-        <viewmodels:MainViewModel x:Name="vm" />
+        <viewmodels:MainViewModel />
     </views:BaseView.BindingContext>
 
     <ContentPage.ToolbarItems>

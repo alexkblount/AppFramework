@@ -8,4 +8,8 @@
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
     Title="{Binding Title, Mode=OneWay}">
 
+    <views:BaseView.BindingContext>
+        <viewmodels:AboutViewModel />
+    </views:BaseView.BindingContext>
+
 </views:BaseView>

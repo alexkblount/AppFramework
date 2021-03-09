@@ -9,6 +9,10 @@
     xmlns:controls="clr-namespace:Contoso.Mobile.UI.Controls"
     Title="{Binding Title, Mode=OneWay}">
 
+    <views:BaseView.BindingContext>
+        <viewmodels:NoteViewModel />
+    </views:BaseView.BindingContext>
+
     <Grid>
         <RefreshView x:DataType="viewmodels:NoteViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
             <StackLayout Spacing="20" Padding="15">

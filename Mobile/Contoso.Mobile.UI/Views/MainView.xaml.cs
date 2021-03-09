@@ -16,7 +16,6 @@ namespace Contoso.Mobile.UI.Views
         public MainView()
         {
             InitializeComponent();
-            this.ViewModel = vm;
         }
     }
 }

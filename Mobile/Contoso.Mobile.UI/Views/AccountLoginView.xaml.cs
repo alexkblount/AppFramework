@@ -14,7 +14,6 @@ namespace Contoso.Mobile.UI.Views
         public AccountLoginView()
         {
             InitializeComponent();
-            this.ViewModel = new AccountLoginViewModel();
         }
     }
 }

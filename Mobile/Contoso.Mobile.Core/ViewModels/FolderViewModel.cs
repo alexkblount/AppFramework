@@ -1,5 +1,5 @@
-﻿using Contoso.Core;
-using Contoso.Mobile.Core.Models;
+﻿using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -9,8 +9,6 @@ namespace Contoso.Mobile.Core.ViewModels
     public sealed class FolderViewModel : BaseViewModel
     {
         #region Properties
-
-        private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
 
         private string _Id;
         public string Id
@@ -52,9 +50,11 @@ namespace Contoso.Mobile.Core.ViewModels
         {
             if (this.Model == null || forceRefresh)
                 if (this.Id == null)
-                    this.Model = (FolderModel)await this.DataStore.GetAsync(this.Id);
+                    this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
                 else
-                    this.Model = (FolderModel)await this.DataStore.GetAsync(this.Id);
+                    this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
+
+            this.Title = this.Model?.Name ?? "Welcome Folder";
         }
 
         private async Task NavigationAsync()

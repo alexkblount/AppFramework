@@ -2,14 +2,19 @@
 <views:BaseView 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Contoso.Mobile.UI.Views.SettingsView"
+    x:Class="Contoso.Mobile.UI.Views.WelcomeView"
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
     Title="{Binding Title, Mode=OneWay}">
 
     <views:BaseView.BindingContext>
-        <viewmodels:SettingsViewModel />
+        <viewmodels:WelcomeViewModel />
     </views:BaseView.BindingContext>
+
+    <StackLayout>
+        <Button Text="Login" Command="{Binding LoginCommand}" />
+        <Button Text="Create Account" Command="{Binding CreateCommand}" />
+    </StackLayout>
 
 </views:BaseView>

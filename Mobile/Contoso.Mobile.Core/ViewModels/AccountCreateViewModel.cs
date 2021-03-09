@@ -10,9 +10,25 @@ namespace Contoso.Mobile.Core.ViewModels
 {
     public sealed class AccountCreateViewModel : BaseViewModel
     {
+        #region Properties
+
+        #endregion
+
+        #region Constructors
+
         public AccountCreateViewModel()
         {
             this.Title = "Create Account";
         }
+
+        #endregion
+
+        #region Methods
+
+        #endregion
+
+        #region Events
+
+        #endregion
     }
 }

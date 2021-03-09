@@ -15,7 +15,7 @@ namespace Contoso.Mobile.UI
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<NavigationService>();
 
-            MainPage = new ShellView();
+            MainPage = new NavigationPage(new WelcomeView());
         }
 
         protected override void OnStart()

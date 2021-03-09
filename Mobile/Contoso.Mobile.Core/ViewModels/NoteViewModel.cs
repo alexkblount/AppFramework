@@ -11,8 +11,6 @@ namespace Contoso.Mobile.Core.ViewModels
     [QueryProperty(nameof(NoteModel.Id), nameof(NoteModel.Id))]
     public sealed class NoteViewModel : BaseViewModel
     {
-        private IDataStore<BaseItemModel> DataStore => DependencyService.Get<IDataStore<BaseItemModel>>();
-
         private string _Id;
         public string Id
         {
@@ -34,8 +32,8 @@ namespace Contoso.Mobile.Core.ViewModels
 
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
-            if (this.Model == null || forceRefresh)
-                this.Model = (NoteModel)await this.DataStore.GetAsync(this.Id);
+            if (this.Model == null || this.Model.Id != this.Id || forceRefresh)
+                this.Model = (NoteModel)await this.DataStore.Notes.GetAsync(this.Id);
         }
     }
 }

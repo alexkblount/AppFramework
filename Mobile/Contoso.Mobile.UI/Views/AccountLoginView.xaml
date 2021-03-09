@@ -8,4 +8,19 @@
     xmlns:models="clr-namespace:Contoso.Mobile.Core.Models;assembly=Contoso.Mobile.Core"
     Title="{Binding Title, Mode=OneWay}">
 
+    <ContentPage.BindingContext>
+        <viewmodels:AccountLoginViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="E-mail:" />
+            <Entry Text="{Binding Email, Mode=TwoWay}" />
+            <Label Text="Password:" />
+            <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" />
+            <Button Text="Login" Command="{Binding SubmitCommand}"/>
+            <Label Text="{Binding ErrorMessage, Mode=OneWay}" />
+        </StackLayout>
+    </ContentPage.Content>
+    
 </views:BaseView>

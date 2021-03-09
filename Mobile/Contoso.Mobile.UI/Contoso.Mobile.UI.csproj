@@ -36,6 +36,9 @@
     <Compile Update="Views\AccountLoginView.xaml.cs">
       <DependentUpon>AccountLoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>

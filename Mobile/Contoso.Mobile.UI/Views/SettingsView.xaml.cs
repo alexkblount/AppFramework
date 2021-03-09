@@ -14,7 +14,6 @@ namespace Contoso.Mobile.UI.Views
         public SettingsView()
         {
             InitializeComponent();
-            this.ViewModel = new SettingsViewModel();
         }
     }
 }

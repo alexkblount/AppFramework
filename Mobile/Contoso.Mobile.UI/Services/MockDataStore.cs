@@ -1,18 +1,28 @@
 ﻿using Contoso.Core;
 using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Contoso.Mobile.UI.Services
 {
-    public sealed class MockDataStore : IDataStore<BaseItemModel>
+    public sealed class MockDataStore : IDataStore
+    {
+        public IDataStore<BaseItemModel> Notes => new MockItemsDataStore();
+
+        public Task<bool> AuthenticateAsync(string email, string password)
+        {
+            return Task.FromResult(true);
+        }
+    }
+
+    public sealed class MockItemsDataStore : IDataStore<BaseItemModel>
     {
         readonly static List<BaseItemModel> items;
 
-        static MockDataStore()
+        static MockItemsDataStore()
         {
             var work = new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Work" };
             work.Notes = new System.Collections.ObjectModel.ObservableCollection<BaseItemModel>()
@@ -31,6 +41,10 @@ namespace Contoso.Mobile.UI.Services
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Take the kids out", Body="This is an item description." },
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Body="This is an item description." }
             };
+        }
+
+        internal MockItemsDataStore()
+        {
         }
 
         public async Task<bool> AddAsync(BaseItemModel model)

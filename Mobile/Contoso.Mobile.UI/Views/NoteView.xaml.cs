@@ -14,7 +14,6 @@ namespace Contoso.Mobile.UI.Views
         public NoteView()
         {
             InitializeComponent();
-            this.ViewModel = new NoteViewModel();
         }
     }
 }

@@ -8,11 +8,15 @@ namespace Contoso.Mobile.UI.Views
 {
     public class BaseView : ContentPage
     {
-        private BaseViewModel _viewModel;
         public BaseViewModel ViewModel
         {
-            get { return _viewModel; }
-            protected set { this.BindingContext = _viewModel = value; }
+            get 
+            {
+                if (this.BindingContext is BaseViewModel vm)
+                    return vm;
+                else
+                    return null;
+            }
         }
 
         protected override async void OnAppearing()

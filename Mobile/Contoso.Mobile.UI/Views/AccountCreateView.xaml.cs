@@ -14,7 +14,6 @@ namespace Contoso.Mobile.UI.Views
         public AccountCreateView()
         {
             InitializeComponent();
-            this.ViewModel = new AccountCreateViewModel();
         }
     }
 }

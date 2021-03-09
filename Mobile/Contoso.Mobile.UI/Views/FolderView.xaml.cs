@@ -15,7 +15,6 @@ namespace Contoso.Mobile.UI.Views
         public FolderView()
         {
             InitializeComponent();
-            this.ViewModel = vm;
         }
     }
 }

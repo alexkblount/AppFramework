@@ -1,9 +1,6 @@
 ﻿using Contoso.Mobile.Core.Models;
 using Contoso.Mobile.Core.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -14,6 +11,7 @@ namespace Contoso.Mobile.Core.ViewModels
         #region Properties
 
         public INavigationService NavigationService => DependencyService.Get<INavigationService>();
+        public IDataStore DataStore => DependencyService.Get<IDataStore>();
 
         private bool _IsInitialized;
         public bool IsInitialized
@@ -70,7 +68,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         #region Methods
 
-        protected void ShowBusyStatus(string statusMessage)
+        protected void ShowBusyStatus(string statusMessage = null)
         {
             this.StatusIsBusy = true;
 
@@ -91,6 +89,10 @@ namespace Contoso.Mobile.Core.ViewModels
                 this.ShowBusyStatus(statusText);
                 this.RefreshTasks?.Refresh(forceRefresh);
                 await this.OnRefreshAsync(forceRefresh || !this.IsInitialized);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
             finally
             {
