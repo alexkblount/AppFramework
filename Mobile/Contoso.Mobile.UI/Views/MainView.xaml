@@ -18,15 +18,7 @@
     </ContentPage.ToolbarItems>
 
     <Grid>
-        <RefreshView x:DataType="viewmodels:MainViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
-            <CollectionView
-                ItemsSource="{Binding Notes}" 
-                ItemTemplate="{StaticResource NoteFolderDataSelector}"
-                SelectionMode="Single" 
-                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                SelectionChangedCommand="{Binding NavigationCommand}" />
-        </RefreshView>
-        <controls:Busy IsBusy="{Binding StatusIsBusy}" Message="{Binding StatusText}" />
+        
     </Grid>
 
 </views:BaseView>

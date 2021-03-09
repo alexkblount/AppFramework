@@ -1,8 +1,4 @@
-﻿using Contoso.Core;
-using Contoso.Mobile.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Contoso.Mobile.Core.Models;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

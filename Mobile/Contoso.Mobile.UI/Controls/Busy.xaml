@@ -13,7 +13,7 @@
                 VerticalOptions="CenterAndExpand">
                 <ActivityIndicator IsRunning="{Binding IsBusy}" />
                 <Label 
-                    Text="{Binding Message, TargetNullValue='Just a couple seconds...'}" 
+                    Text="{Binding Message}" 
                     IsVisible="{Binding Message, Converter={StaticResource boolConverter}}"
                     TextColor="White"
                     HorizontalTextAlignment="Center" />

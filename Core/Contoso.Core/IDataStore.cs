@@ -10,6 +10,6 @@ namespace Contoso.Core
         Task<bool> UpdateAsync(T model);
         Task<bool> DeleteAsync(string id);
         Task<T> GetAsync(string id);
-        Task<IList<T>> GetAsync();
+        Task<T> GetAsync();
     }
 }

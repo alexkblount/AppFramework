@@ -5,9 +5,10 @@
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     xmlns:viewmodels="clr-namespace:Contoso.Mobile.Core.ViewModels;assembly=Contoso.Mobile.Core"
     x:Class="Contoso.Mobile.UI.Views.ShellView">
-    
+
     <TabBar>
-        <ShellContent Title="Home" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:MainView}" />
+        <ShellContent Title="Notes" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:FolderView}" />
+        <!--<ShellContent Title="Home" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:MainView}" />-->
         <ShellContent Title="Settings" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:SettingsView}" />
         <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate views:AboutView}" />
     </TabBar>

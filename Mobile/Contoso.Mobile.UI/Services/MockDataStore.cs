@@ -20,7 +20,7 @@ namespace Contoso.Mobile.UI.Services
 
     public sealed class MockItemsDataStore : IDataStore<BaseItemModel>
     {
-        readonly static List<BaseItemModel> items;
+        readonly static FolderModel root;
 
         static MockItemsDataStore()
         {
@@ -31,15 +31,18 @@ namespace Contoso.Mobile.UI.Services
                 new NoteModel { Id = Guid.NewGuid().ToString(), Name = "iOS", Body="At apple.com" },
             };
 
-            items = new List<BaseItemModel>()
+            root = new FolderModel()
             {
-                new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Home To-Do", Body="This is an item description." },
-                new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Personal" },
-                work,
-                new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Projects" },
-                new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Call Mom", Body="Call on at 630-430-7404" },
-                new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Take the kids out", Body="This is an item description." },
-                new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Body="This is an item description." }
+                Notes = new System.Collections.ObjectModel.ObservableCollection<BaseItemModel>()
+                {
+                    new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Home To-Do", Body="This is an item description." },
+                    new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Personal" },
+                    work,
+                    new FolderModel { Id = Guid.NewGuid().ToString(), Name = "Projects" },
+                    new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Call Mom", Body="Call on at 630-430-7404" },
+                    new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Take the kids out", Body="This is an item description." },
+                    new NoteModel { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Body="This is an item description." }
+                }
             };
         }
 
@@ -49,36 +52,56 @@ namespace Contoso.Mobile.UI.Services
 
         public async Task<bool> AddAsync(BaseItemModel model)
         {
-            items.Add(model);
+            root.Notes.Add(model);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateAsync(BaseItemModel model)
         {
-            var oldItem = items.Where(arg => arg.Id == model.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(model);
+            var oldItem = root.Notes.Where(arg => arg.Id == model.Id).FirstOrDefault();
+            root.Notes.Remove(oldItem);
+            root.Notes.Add(model);
 
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteAsync(string id)
         {
-            var oldItem = items.Where(arg => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
+            var oldItem = root.Notes.Where(arg => arg.Id == id).FirstOrDefault();
+            root.Notes.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<BaseItemModel> GetAsync(string id)
+        public Task<BaseItemModel> GetAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            BaseItemModel GetModel(FolderModel folder)
+            {
+                BaseItemModel model = folder.Notes.FirstOrDefault(s => s.Id == id);
+
+                if (model == null)
+                    foreach (var m in folder.Notes)
+                    {
+                        if (m is FolderModel innerFolder)
+                            model = GetModel(innerFolder);
+
+                        if (model != null)
+                            break;
+                    }
+
+                return model;
+            }
+
+            if (id == null)
+                return GetAsync();
+            else
+                return Task.FromResult(GetModel(root));
         }
 
-        public async Task<IList<BaseItemModel>> GetAsync()
+        public async Task<BaseItemModel> GetAsync()
         {
-            return await Task.FromResult(items);
+            return await Task.FromResult(root);
         }
     }
 }

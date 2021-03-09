@@ -40,6 +40,8 @@ namespace Contoso.Mobile.Core.ViewModels
         public FolderViewModel()
         {
             this.Title = "Folder";
+
+            this.RefreshTasks.Add(this.LoadMainItems);
         }
 
         #endregion
@@ -48,14 +50,14 @@ namespace Contoso.Mobile.Core.ViewModels
 
         protected override async Task OnRefreshAsync(bool forceRefresh)
         {
-            if (this.Model == null || forceRefresh)
-                if (this.Id == null)
-                    this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
-                else
-                    this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
+            if (this.Model == null || this.Model.Id != this.Id || forceRefresh)
+                this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
 
             this.Title = this.Model?.Name ?? "Welcome Folder";
         }
+
+        private async Task LoadItems()
+        { }
 
         private async Task NavigationAsync()
         {

@@ -92,7 +92,7 @@ namespace Contoso.Mobile.Core.ViewModels
             }
             catch(Exception ex)
             {
-                throw ex;
+                //throw ex;
             }
             finally
             {
