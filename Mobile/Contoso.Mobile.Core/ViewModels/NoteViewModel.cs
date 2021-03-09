@@ -1,4 +1,5 @@
 ﻿using Contoso.Mobile.Core.Models;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -26,7 +27,7 @@ namespace Contoso.Mobile.Core.ViewModels
             this.Title = "Note";
         }
 
-        protected override async Task OnRefreshAsync(bool forceRefresh)
+        protected override async Task OnRefreshAsync(bool forceRefresh, CancellationToken ct)
         {
             if (this.Model == null || this.Model.Id != this.Id || forceRefresh)
                 this.Model = (NoteModel)await this.DataStore.Notes.GetAsync(this.Id);

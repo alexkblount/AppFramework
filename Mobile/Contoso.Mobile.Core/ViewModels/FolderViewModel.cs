@@ -1,5 +1,6 @@
 ﻿using Contoso.Mobile.Core.Models;
 using Contoso.Mobile.Core.Services;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -40,24 +41,19 @@ namespace Contoso.Mobile.Core.ViewModels
         public FolderViewModel()
         {
             this.Title = "Folder";
-
-            this.RefreshTasks.Add(this.LoadMainItems);
         }
 
         #endregion
 
         #region Methods
 
-        protected override async Task OnRefreshAsync(bool forceRefresh)
+        protected override async Task OnRefreshAsync(bool forceRefresh, CancellationToken ct)
         {
             if (this.Model == null || this.Model.Id != this.Id || forceRefresh)
                 this.Model = (FolderModel)await this.DataStore.Notes.GetAsync(this.Id);
 
             this.Title = this.Model?.Name ?? "Welcome Folder";
         }
-
-        private async Task LoadItems()
-        { }
 
         private async Task NavigationAsync()
         {

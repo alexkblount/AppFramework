@@ -1,6 +1,7 @@
 ﻿using Contoso.Mobile.Core.Models;
 using Contoso.Mobile.Core.Services;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -48,12 +49,7 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _RefreshCommand, value); }
         }
 
-        private NotifyTaskCompletionList _RefreshTasks = new NotifyTaskCompletionList();
-        public NotifyTaskCompletionList RefreshTasks
-        {
-            get { return _RefreshTasks; }
-            private set { this.SetProperty(ref _RefreshTasks, value); }
-        }
+        public NotifyTaskCompletionList RefreshTasks => new NotifyTaskCompletionList();
 
         #endregion
 
@@ -61,7 +57,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         public BaseViewModel()
         {
-            this.RefreshCommand = new Command(async () => await RefreshAsync(true));
+            this.RefreshCommand = new Command(async () => await RefreshAsync(!this.IsInitialized));
         }
 
         #endregion
@@ -87,12 +83,13 @@ namespace Contoso.Mobile.Core.ViewModels
             try
             {
                 this.ShowBusyStatus(statusText);
-                this.RefreshTasks?.Refresh(forceRefresh);
-                await this.OnRefreshAsync(forceRefresh || !this.IsInitialized);
+                CancellationToken ct = new CancellationToken();
+                this.RefreshTasks?.Refresh(forceRefresh, ct);
+                await this.OnRefreshAsync(forceRefresh || !this.IsInitialized, ct);
             }
             catch(Exception ex)
             {
-                //throw ex;
+                throw ex;
             }
             finally
             {
@@ -101,7 +98,7 @@ namespace Contoso.Mobile.Core.ViewModels
             }
         }
 
-        protected virtual Task OnRefreshAsync(bool forceRefresh)
+        protected virtual Task OnRefreshAsync(bool forceRefresh, CancellationToken ct)
         {
             return Task.CompletedTask;
         }

@@ -15,15 +15,20 @@ namespace Contoso.Mobile.Core
         bool IsCanceled { get; }
         bool IsFaulted { get; }
         bool HasResult { get; }
-        void Refresh(bool forceRefresh = true);
+        void Refresh(bool forceRefresh, CancellationToken ct);
     }
 
     public sealed class NotifyTaskCompletionList : List<INotifyTaskCompletion>
     {
-        public void Refresh(bool forceRefresh = true)
+        //public void Add<T>(Task<T> task)
+        //{
+        //    this.Add(new NotifyTaskCompletion<T>(task));
+        //}
+
+        public void Refresh(bool forceRefresh, CancellationToken ct)
         {
             foreach (var ntc in this)
-                ntc.Refresh(forceRefresh);
+                ntc.Refresh(forceRefresh, ct);
         }
     }
 
