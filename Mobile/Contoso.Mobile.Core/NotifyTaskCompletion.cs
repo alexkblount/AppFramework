@@ -20,11 +20,13 @@ namespace Contoso.Mobile.Core
 
     public sealed class NotifyTaskCompletionList : List<INotifyTaskCompletion>
     {
-        //public void Add<T>(Task<T> task)
-        //{
-        //    this.Add(new NotifyTaskCompletion<T>(task));
-        //}
-
+        public NotifyTaskCompletion<TResult> Add<TResult>(Func<CancellationToken, Task<TResult>> func)
+        {
+            var ntc = new NotifyTaskCompletion<TResult>(func);
+            this.Add(ntc);
+            return ntc;
+        }
+        
         public void Refresh(bool forceRefresh, CancellationToken ct)
         {
             foreach (var ntc in this)
@@ -41,7 +43,7 @@ namespace Contoso.Mobile.Core
         #region Variables
 
         private TResult _result = default(TResult);
-        private bool _loadedFromCache = false;
+        //private bool _loadedFromCache = false;
 
         #endregion
 
@@ -114,6 +116,7 @@ namespace Contoso.Mobile.Core
             if (funcTask == null)
                 throw new NullReferenceException(nameof(funcTask));
 
+            this.FuncTask = funcTask;
             this.VM = vm;
             this.Key = key;
         }

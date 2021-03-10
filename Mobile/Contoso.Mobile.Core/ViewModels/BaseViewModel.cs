@@ -1,14 +1,22 @@
 ﻿using Contoso.Mobile.Core.Models;
 using Contoso.Mobile.Core.Services;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Contoso.Mobile.Core.ViewModels
 {
-    public abstract class BaseViewModel : BaseModel
+    public abstract class BaseViewModel : BaseModel, IDisposable
     {
+        #region Variables
+
+        private CancellationTokenSource _cts;
+
+        #endregion
+
         #region Properties
 
         public INavigationService NavigationService => DependencyService.Get<INavigationService>();
@@ -49,7 +57,11 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _RefreshCommand, value); }
         }
 
-        public NotifyTaskCompletionList RefreshTasks => new NotifyTaskCompletionList();
+        private readonly NotifyTaskCompletionList _RefreshTasks = new NotifyTaskCompletionList();
+        public NotifyTaskCompletionList RefreshTasks
+        {
+            get { return _RefreshTasks; }
+        }
 
         #endregion
 
@@ -63,6 +75,19 @@ namespace Contoso.Mobile.Core.ViewModels
         #endregion
 
         #region Methods
+
+        public void Dispose()
+        {
+            this.DisposeCancellationToken();
+        }
+
+        private void DisposeCancellationToken()
+        {
+            if (_cts?.IsCancellationRequested == false)
+                _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+        }
 
         protected void ShowBusyStatus(string statusMessage = null)
         {
@@ -78,14 +103,19 @@ namespace Contoso.Mobile.Core.ViewModels
             this.StatusText = null;
         }
 
-        public async Task RefreshAsync(bool forceRefresh = false, string statusText = null)
+        public Task RefreshAsync()
+        {
+            return this.RefreshAsync(!this.IsInitialized);
+        }
+
+        private async Task RefreshAsync(bool forceRefresh, string statusText = null)
         {
             try
             {
                 this.ShowBusyStatus(statusText);
-                CancellationToken ct = new CancellationToken();
-                this.RefreshTasks?.Refresh(forceRefresh, ct);
-                await this.OnRefreshAsync(forceRefresh || !this.IsInitialized, ct);
+                _cts = new CancellationTokenSource();
+                this.RefreshTasks?.Refresh(forceRefresh, _cts.Token);
+                await this.OnRefreshAsync(forceRefresh, _cts.Token);
             }
             catch(Exception ex)
             {
@@ -95,6 +125,7 @@ namespace Contoso.Mobile.Core.ViewModels
             {
                 this.IsInitialized = true;
                 this.ClearStatus();
+                this.DisposeCancellationToken();
             }
         }
 
@@ -104,5 +135,13 @@ namespace Contoso.Mobile.Core.ViewModels
         }
 
         #endregion
+
+        #region Events
+
+        #endregion
+
+
+
+        public Command NavigationCommand => new Command(async () => await this.NavigationService.HomeAsync());
     }
 }

@@ -12,4 +12,8 @@
         <viewmodels:SettingsViewModel />
     </views:BaseView.BindingContext>
 
+    <StackLayout>
+        <Button Text="Home" Command="{Binding NavigationCommand}" />
+    </StackLayout>
+    
 </views:BaseView>

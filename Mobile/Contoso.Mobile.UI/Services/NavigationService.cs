@@ -2,6 +2,7 @@
 using Contoso.Mobile.Core.Services;
 using Contoso.Mobile.Core.ViewModels;
 using Contoso.Mobile.UI.Views;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -43,10 +44,16 @@ namespace Contoso.Mobile.UI.Services
 
         public async Task HomeAsync()
         {
-            if (Application.Current.MainPage.GetType() != typeof(ShellView))
-                Application.Current.MainPage = new ShellView();
-            else
-                await Shell.Current.GoToAsync("...");
+            try
+            {
+                if (Application.Current.MainPage.GetType() != typeof(ShellView))
+                    Application.Current.MainPage = new ShellView();
+                else
+                    await Shell.Current.GoToAsync("///");
+            }
+            catch(Exception ex)
+            {
+            }
         }
 
         public async Task NavigateToAsync<T>(BaseModel model = null) where T : BaseViewModel

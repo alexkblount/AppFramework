@@ -10,6 +10,7 @@ namespace Contoso.Mobile.Core.ViewModels
 {
     public sealed class SettingsViewModel : BaseViewModel
     {
+
         public SettingsViewModel()
         {
             this.Title = "Settings";
