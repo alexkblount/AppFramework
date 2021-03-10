@@ -35,8 +35,8 @@ namespace Contoso.Mobile.Core.ViewModels
 
         protected override async Task OnRefreshAsync(bool forceRefresh, CancellationToken ct)
         {
-            if (this.Model == null || this.Model.Id != this.Id || forceRefresh)
-                this.Model = (NoteModel)await this.DataStore.Notes.GetAsync(this.Id);
+            if (forceRefresh || this.Model == null || this.Id != this.Model?.Id)
+                this.Model = await this.DataStore.Notes.GetAsync(this.Id) as NoteModel;
         }
 
         private NotifyTaskCompletion<string> _DoWork1Task;

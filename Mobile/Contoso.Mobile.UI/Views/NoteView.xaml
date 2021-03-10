@@ -33,7 +33,7 @@
                                     <Label>
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="Result: "/>
+                                                <Span Text="Result: " FontSize="Micro" />
                                                 <Span Text="{Binding Result}" FontAttributes="Bold" />
                                             </FormattedString>
                                         </Label.FormattedText>

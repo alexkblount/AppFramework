@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -19,8 +21,17 @@ namespace Contoso.Mobile.Core.ViewModels
 
         #region Properties
 
-        public INavigationService NavigationService => DependencyService.Get<INavigationService>();
-        public IDataStore DataStore => DependencyService.Get<IDataStore>();
+        private static INavigationService _NavigationService = DependencyService.Get<INavigationService>(); 
+        public INavigationService NavigationService
+        {
+            get { return _NavigationService; }
+        }
+
+        private static IDataStore _DataStore = DependencyService.Get<IDataStore>();
+        public IDataStore DataStore
+        {
+            get { return _DataStore; }
+        }
 
         private bool _IsInitialized;
         public bool IsInitialized
@@ -50,8 +61,8 @@ namespace Contoso.Mobile.Core.ViewModels
             private set { this.SetProperty(ref _StatusText, value); }
         }
 
-        private Command _RefreshCommand;
-        public Command RefreshCommand
+        private IAsyncCommand _RefreshCommand;
+        public IAsyncCommand RefreshCommand
         {
             get { return _RefreshCommand; }
             private set { this.SetProperty(ref _RefreshCommand, value); }
@@ -69,7 +80,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         public BaseViewModel()
         {
-            this.RefreshCommand = new Command(async () => await RefreshAsync(!this.IsInitialized));
+            this.RefreshCommand = new AsyncCommand(async () => await RefreshAsync(!this.IsInitialized));
         }
 
         #endregion

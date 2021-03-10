@@ -24,7 +24,7 @@ namespace Contoso.Mobile.Core.Models
 
     public sealed class FolderModel : BaseItemModel
     {
-        private ObservableCollection<BaseItemModel> _Notes;
+        private ObservableCollection<BaseItemModel> _Notes = new ObservableCollection<BaseItemModel>();
         public ObservableCollection<BaseItemModel> Notes
         {
             get { return _Notes; }

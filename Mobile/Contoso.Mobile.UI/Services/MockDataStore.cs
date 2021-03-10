@@ -10,7 +10,8 @@ namespace Contoso.Mobile.UI.Services
 {
     public sealed class MockDataStore : IDataStore
     {
-        public IDataStore<BaseItemModel> Notes => new MockItemsDataStore();
+        private IDataStore<BaseItemModel> _Notes = new MockItemsDataStore();
+        public IDataStore<BaseItemModel> Notes { get { return _Notes; } private set { _Notes = value; } }
 
         public Task<bool> AuthenticateAsync(string email, string password)
         {
@@ -78,7 +79,7 @@ namespace Contoso.Mobile.UI.Services
         {
             BaseItemModel GetModel(FolderModel folder)
             {
-                BaseItemModel model = folder.Notes.FirstOrDefault(s => s.Id == id);
+                BaseItemModel model = folder.Notes?.FirstOrDefault(s => s.Id == id);
 
                 if (model == null)
                     foreach (var m in folder.Notes)
