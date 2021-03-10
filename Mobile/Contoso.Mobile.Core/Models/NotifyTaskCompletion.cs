@@ -2,10 +2,11 @@
 using Contoso.Mobile.Core.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Contoso.Mobile.Core
+namespace Contoso.Mobile.Core.Models
 {
     public interface INotifyTaskCompletion
     {
@@ -18,7 +19,7 @@ namespace Contoso.Mobile.Core
         void Refresh(bool forceRefresh, CancellationToken ct);
     }
 
-    public sealed class NotifyTaskCompletionList : List<INotifyTaskCompletion>
+    public sealed class NotifyTaskCompletionList : ObservableCollection<INotifyTaskCompletion>
     {
         public NotifyTaskCompletion<TResult> Add<TResult>(Func<CancellationToken, Task<TResult>> func)
         {

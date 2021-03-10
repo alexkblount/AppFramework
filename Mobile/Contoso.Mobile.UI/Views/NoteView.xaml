@@ -14,7 +14,7 @@
     </views:BaseView.BindingContext>
 
     <Grid>
-        <RefreshView x:DataType="viewmodels:NoteViewModel" Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding StatusIsBusy, Mode=TwoWay}">
             <ScrollView>
                 <StackLayout Spacing="20" Padding="15">
 
@@ -25,20 +25,28 @@
 
                     <Button Text="Home" Command="{Binding NavigationCommand}" />
 
-                    <Label Text="{Binding DoWork1Task.Result, StringFormat='Result: {0}'}" FontAttributes="Bold" />
-                    <Label Text="{Binding DoWork1Task.Status, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork1Task.IsCompleted, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork1Task.IsNotCompleted, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork1Task.Exception, StringFormat='Exception: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork1Task.IsResultNull, StringFormat='IsResultNull: {0}'}" FontSize="Micro" />
-
-                    <Label Text="{Binding DoWork2Task.Result, StringFormat='Result: {0}'}" FontAttributes="Bold" />
-                    <Label Text="{Binding DoWork2Task.Status, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork2Task.IsCompleted, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork2Task.IsNotCompleted, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork2Task.Status, StringFormat='Status: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork2Task.Exception, StringFormat='Exception: {0}'}" FontSize="Micro" />
-                    <Label Text="{Binding DoWork2Task.IsResultNull, StringFormat='IsResultNull: {0}'}" FontSize="Micro" />
+                    <CollectionView
+                        ItemsSource="{Binding RefreshTasks}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Result: "/>
+                                                <Span Text="{Binding Result}" FontAttributes="Bold" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{Binding Status, StringFormat='Status: {0}'}" FontSize="Micro" />
+                                    <Label Text="{Binding IsCompleted, StringFormat='IsCompleted: {0}'}" FontSize="Micro" />
+                                    <Label Text="{Binding IsNotCompleted, StringFormat='IsNotCompleted: {0}'}" FontSize="Micro" />
+                                    <Label Text="{Binding Exception, StringFormat='Exception: {0}'}" FontSize="Micro" />
+                                    <Label Text="{Binding IsResultNull, StringFormat='IsResultNull: {0}'}" FontSize="Micro" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                 </StackLayout>
             </ScrollView>
