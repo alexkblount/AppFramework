@@ -27,8 +27,8 @@ namespace Contoso.Mobile.Core.ViewModels
             get { return _NavigationService; }
         }
 
-        private static IDataStore _DataStore = DependencyService.Get<IDataStore>();
-        public IDataStore DataStore
+        private static IDataStoreAuthentication _DataStore = DependencyService.Get<IDataStoreAuthentication>();
+        public IDataStoreAuthentication DataStore
         {
             get { return _DataStore; }
         }

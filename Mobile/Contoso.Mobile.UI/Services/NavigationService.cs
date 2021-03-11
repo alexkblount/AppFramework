@@ -42,14 +42,25 @@ namespace Contoso.Mobile.UI.Services
             return this.Navigation.PushAsync(new AccountCreateView());
         }
 
+        public bool IsAuthenticated { get; set; }
+
         public async Task HomeAsync()
         {
+            this.IsAuthenticated = true;
+
             try
-            {
-                if (Application.Current.MainPage.GetType() != typeof(ShellView))
-                    Application.Current.MainPage = new ShellView();
+            {                
+                if (this.IsAuthenticated)
+                {
+                    if(Application.Current.MainPage == null || Application.Current.MainPage.GetType() != typeof(ShellView))
+                        Application.Current.MainPage = new ShellView();
+                    else
+                        await Shell.Current.GoToAsync("///");
+                }
                 else
-                    await Shell.Current.GoToAsync("///");
+                {
+                    Application.Current.MainPage = new NavigationPage(new WelcomeView());
+                }
             }
             catch(Exception ex)
             {

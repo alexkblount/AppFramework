@@ -1,5 +1,6 @@
 ﻿using Contoso.Core;
 using Contoso.Mobile.Core.Models;
+using Contoso.Mobile.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;

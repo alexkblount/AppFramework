@@ -5,17 +5,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace Contoso.Mobile.UI.Services
 {
-    public sealed class MockDataStore : IDataStore
+    public abstract class BaseStorageService : IDataStore
+    {
+        public async Task<string> GetSecureAsync(string secureName)
+        {
+            if (string.IsNullOrWhiteSpace(secureName))
+                throw new ArgumentNullException(nameof(secureName));
+
+            string secureValue = null;
+
+            try
+            {
+                secureValue = await SecureStorage.GetAsync(secureName);
+            }
+            catch (Exception ex)
+            {
+                // Possible that device doesn't support secure storage on device.
+                throw ex;
+            }
+
+            return secureValue;
+        }
+
+        public async Task SaveSecureAsync(string secureName, string secureValue)
+        {
+            if (string.IsNullOrWhiteSpace(secureName))
+                throw new ArgumentNullException(nameof(secureName));
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(secureValue))
+                    SecureStorage.Remove(secureName);
+                else
+                    await SecureStorage.SetAsync(secureName, secureValue);
+            }
+            catch (Exception ex)
+            {
+                // Possible that device doesn't support secure storage on device.
+                throw ex;
+            }
+        }
+    }
+
+    public sealed class MockDataStore : BaseStorageService, IDataStoreAuthentication
     {
         private IDataStore<BaseItemModel> _Notes = new MockItemsDataStore();
         public IDataStore<BaseItemModel> Notes { get { return _Notes; } private set { _Notes = value; } }
 
-        public Task<bool> AuthenticateAsync(string email, string password)
+        public string RefreshToken { get; set; }
+
+        public async Task<bool> AuthenticateAsync(string email, string password)
         {
-            return Task.FromResult(true);
+            bool isLoggedin = !string.IsNullOrEmpty(email);
+            if (isLoggedin)
+            {
+                await this.SaveSecureAsync(email, password);
+                this.RefreshToken = email;
+            }
+            return isLoggedin;
         }
     }
 
