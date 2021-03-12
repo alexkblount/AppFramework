@@ -5,10 +5,14 @@
     xmlns:views="clr-namespace:Contoso.Mobile.UI.Views"
     x:Class="Contoso.Mobile.UI.Views.ShellView">
 
+    <TabBar >
+        <ShellContent Route="BaseFolderView" Title="Notes" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:FolderView}" />
+        <ShellContent Route="SettingsView" Title="Settings" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:SettingsView}" />
+        <ShellContent Route="AboutView" Title="About" Icon="icon_about.png" ContentTemplate="{DataTemplate views:AboutView}" />
+    </TabBar>
+
     <TabBar>
-        <ShellContent Title="Notes" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:FolderView}" />
-        <ShellContent Title="Settings" Icon="icon_feed.png" ContentTemplate="{DataTemplate views:SettingsView}" />
-        <ShellContent Title="About" Icon="icon_about.png" ContentTemplate="{DataTemplate views:AboutView}" />
+        <ShellContent Route="LoginView" ContentTemplate="{DataTemplate views:AccountLoginView}" />
     </TabBar>
     
 </Shell>

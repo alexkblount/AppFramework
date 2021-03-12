@@ -58,9 +58,9 @@ namespace Contoso.Mobile.Core.ViewModels
         private async Task NavigationAsync()
         {
             if (this.SelectedItem is FolderModel folder)
-                await this.NavigationService.NavigateToAsync<FolderViewModel>(folder);
+                await this.NavigationService.NavigateToDetailAsync<FolderViewModel>(folder);
             else if (this.SelectedItem is NoteModel note)
-                await this.NavigationService.NavigateToAsync<NoteViewModel>(note);
+                await this.NavigationService.NavigateToDetailAsync<NoteViewModel>(note);
 
             this.SelectedItem = null;
         }

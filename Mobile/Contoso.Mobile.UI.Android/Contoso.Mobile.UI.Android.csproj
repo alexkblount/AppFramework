@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -88,7 +87,7 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Contoso.Mobile.UI\Contoso.Mobile.UI.csproj">
-      <Project>{7F15F5AB-5B79-4399-B00D-386E6933ACDE}</Project>
+      <Project>{6D271D16-2E78-4DFC-91DB-85923FCDD12D}</Project>
       <Name>Contoso.Mobile.UI</Name>
     </ProjectReference>
   </ItemGroup>

@@ -9,6 +9,14 @@ namespace Contoso.Mobile.Core.ViewModels
     [QueryProperty(nameof(NoteModel.Id), nameof(NoteModel.Id))]
     public sealed class NoteViewModel : BaseViewModel
     {
+
+
+        public Command NavigateToRootCommand
+        {
+            get;
+            set;
+        }
+
         private string _Id;
         public string Id
         {
@@ -25,6 +33,7 @@ namespace Contoso.Mobile.Core.ViewModels
 
         public NoteViewModel()
         {
+            NavigateToRootCommand = new Command(async () => await NavigationService.NavigateToRootAsync());
             this.Title = "Note";
 
             this.DoWork1Task = this.RefreshTasks.Add<string>(async (ct) => await this.DoWork1Async());

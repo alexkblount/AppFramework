@@ -15,6 +15,18 @@ namespace Contoso.Mobile.Core.ViewModels
     {
         #region Variables
 
+        public static string GetViewName<T>()
+        {
+            var type = typeof(T);
+
+            var name = type.Name;
+
+            if (!name.Contains("ViewModel"))
+                throw new NotSupportedException("Your view model is not named correctly");
+
+            return name.Remove(name.IndexOf("Model"));
+        }
+
         private CancellationTokenSource _cts;
 
         #endregion
@@ -153,6 +165,6 @@ namespace Contoso.Mobile.Core.ViewModels
 
 
 
-        public Command NavigationCommand => new Command(async () => await this.NavigationService.HomeAsync());
+        public Command NavigationCommand => new Command(() => { });
     }
 }

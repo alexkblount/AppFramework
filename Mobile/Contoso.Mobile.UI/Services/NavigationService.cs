@@ -10,62 +10,29 @@ namespace Contoso.Mobile.UI.Services
 {
     public sealed class NavigationService : INavigationService
     {
-        public INavigation Navigation
-        {
-            get
-            {
-                if (Application.Current.MainPage is TabbedPage tabPage)
-                {
-                    return tabPage.CurrentPage.Navigation;
-                }
-                else if (Application.Current.MainPage is FlyoutPage flyPage)
-                {
-                    if (flyPage.Detail is TabbedPage flyTabbedPage)
-                        return flyTabbedPage.CurrentPage.Navigation;
-                    else
-                        return flyPage.Detail.Navigation;
-                }
-                else
-                {
-                    return Application.Current.MainPage.Navigation;
-                }
-            }
-        }
-
         public Task AccountSignInAsync(string id = null)
         {
-            return this.Navigation.PushAsync(new AccountLoginView());
+            return Shell.Current.GoToAsync("//LoginView");
         }
 
         public Task AccountSignUpAsync(string id = null)
         {
-            return this.Navigation.PushAsync(new AccountCreateView());
+            return Shell.Current.GoToAsync(BaseViewModel.GetViewName<AccountCreateViewModel>());
         }
 
-        public async Task HomeAsync()
+        public async Task NavigateToDetailAsync<T>(BaseModel model = null) where T : BaseViewModel
         {
-            try
-            {
-                if (Application.Current.MainPage.GetType() != typeof(ShellView))
-                    Application.Current.MainPage = new ShellView();
-                else
-                    await Shell.Current.GoToAsync("///");
-            }
-            catch(Exception ex)
-            {
-            }
-        }
+            var url = $"{BaseViewModel.GetViewName<T>()}";
 
-        public async Task NavigateToAsync<T>(BaseModel model = null) where T : BaseViewModel
-        {
-            var url = $"{typeof(T).Name}";
-
-            if (model is FolderModel folder)
-                url = url + $"?{nameof(BaseItemModel.Id)}={folder.Id}";
-            else if (model is NoteModel note)
-                url = url + $"?{nameof(BaseItemModel.Id)}={note.Id}";
-
+            if (model is BaseItemModel item)
+                url = url + $"?{nameof(BaseItemModel.Id)}={item.Id}";
+           
             await Shell.Current.GoToAsync(url);
+        }
+
+        public Task NavigateToRootAsync()
+        {
+            return Shell.Current.GoToAsync("//BaseFolderView");
         }
     }
 }

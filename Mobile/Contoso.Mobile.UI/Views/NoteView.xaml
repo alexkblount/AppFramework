@@ -23,7 +23,7 @@
                     <Label Text="Body:" FontSize="Micro" />
                     <Label Text="{Binding Model.Body}" FontSize="Medium"/>
 
-                    <Button Text="Home" Command="{Binding NavigationCommand}" />
+                    <Button Text="Home" Command="{Binding NavigateToRootCommand}" />
 
                     <CollectionView
                         ItemsSource="{Binding RefreshTasks}">

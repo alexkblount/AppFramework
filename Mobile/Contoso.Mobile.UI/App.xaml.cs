@@ -15,7 +15,11 @@ namespace Contoso.Mobile.UI
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<NavigationService>();
 
-            MainPage = new NavigationPage(new WelcomeView());
+            MainPage = new ShellView();
+
+
+            //If i dont have a user navigate to Login
+            Shell.Current.GoToAsync("//LoginView");
         }
 
         protected override void OnStart()

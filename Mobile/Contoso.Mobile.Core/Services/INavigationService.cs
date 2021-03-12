@@ -7,10 +7,9 @@ namespace Contoso.Mobile.Core.Services
 {
     public interface INavigationService
     {
-        INavigation Navigation { get; }
-        Task NavigateToAsync<T>(BaseModel model = null) where T : BaseViewModel;
+        Task NavigateToDetailAsync<T>(BaseModel model = null) where T : BaseViewModel;
         Task AccountSignInAsync(string id = null);
         Task AccountSignUpAsync(string id = null);
-        Task HomeAsync();
+        Task NavigateToRootAsync();
     }
 }

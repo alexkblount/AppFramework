@@ -15,8 +15,9 @@ namespace Contoso.Mobile.UI.Views
         public ShellView()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(FolderViewModel), typeof(FolderView));
-            Routing.RegisterRoute(nameof(NoteViewModel), typeof(NoteView));
+
+            Routing.RegisterRoute(nameof(NoteView), typeof(NoteView));
+            Routing.RegisterRoute(nameof(FolderView), typeof(FolderView));
         }
     }
 }

@@ -66,7 +66,7 @@ namespace Contoso.Mobile.Core.ViewModels
                 if (await this.DataStore.AuthenticateAsync(this.Email, this.Password))
                 {
                     this.Reset();
-                    await this.NavigationService.HomeAsync();
+                    await Shell.Current.GoToAsync("//BaseFolderView");
                 }
             }
             catch (Exception ex)
